@@ -14,8 +14,6 @@ export default function CardList() {
 
     useEffect(() => {
         const fetchData = async () => {
-            
-            console.log("filtr = ", filtr)
             if (!filtr) {
                 const data = await getIds(page)
                 dispatch(stateId({ id: data }))
@@ -35,15 +33,12 @@ export default function CardList() {
                     endIndex = page * 50;
                 }
                 const uniqueIDs = [...new Set(stateID.slice(startIndex, endIndex))];
-                console.log("SORTID = ", stateID)
-                console.log("UniqueIDS = ", uniqueIDs)
                 const data2 = await getItems(uniqueIDs);
                 dispatch(getProducts({ products: data2 }))
             }
         }
         fetchData()
     }, [stateID, page])
-    console.log("selector = ", selector)
 
     if (selector.length !== 0) {
         return (

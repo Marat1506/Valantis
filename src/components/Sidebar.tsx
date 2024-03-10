@@ -11,15 +11,11 @@ import { SortBrand, SortName, SortPrice } from '../api/request/request';
 
 
 export default function Sidebar() {
-    const dispatch = useAppDispatch();
-    const filtr = useAppSelector(state => state.test.filtr)
-    console.log("FILTR = ", filtr)
-
+    const dispatch = useAppDispatch()
     const [open, setOpen] = useState(false)
     const [price, setPrice] = useState<number>(0)
     const [name, setName] = useState<string>('')
     const [brand, setBrand] = useState<string>('')
-    console.log("brand = ", brand)
 
 
     const toggleDrawer = (newOpen: boolean) => () => {
@@ -32,34 +28,31 @@ export default function Sidebar() {
         setBrand('');
         dispatch(priceSort({ price: price }))
         const data = await SortPrice(price)
-        console.log("DataPrice = ", data)
         dispatch(stateId({ id: data }))
-        dispatch(stateFiltr({stateFiltr: true}))
+        dispatch(stateFiltr({ stateFiltr: true }))
     }
-    const handleSearchName = async (e: FormEvent) => {      
+    const handleSearchName = async (e: FormEvent) => {
         e.preventDefault()
         setPrice(0);
         setBrand('');
         const data = await SortName(name)
-        console.log("DataName = ", data)
         dispatch(stateId({ id: data }))
-        dispatch(stateFiltr({stateFiltr: true}))
+        dispatch(stateFiltr({ stateFiltr: true }))
     }
     const handleSearchBrand = async (e: FormEvent) => {
         e.preventDefault()
         setPrice(0);
         setName('');
         const data = await SortBrand(brand)
-        console.log("DataBrand = ", data)
         dispatch(stateId({ id: data }))
-        dispatch(stateFiltr({stateFiltr: true}))
+        dispatch(stateFiltr({ stateFiltr: true }))
     }
 
     const resetFilters = () => {
         setPrice(0);
         setName('');
         setBrand('');
-        dispatch(stateFiltr({stateFiltr: false}))
+        dispatch(stateFiltr({ stateFiltr: false }))
     };
 
     const DrawerList = (
